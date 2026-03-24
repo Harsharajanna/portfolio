@@ -1,0 +1,17 @@
+# Node
+node_modules/
+dist/
+.env
+
+# Python
+backend/__pycache__/
+backend/routers/__pycache__/
+backend/venv/
+backend/env/
+backend/.env
+backend/portfolio.db
+
+# IDE
+.vscode/
+.idea/
+*.DS_Store
