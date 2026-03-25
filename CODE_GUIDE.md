@@ -8,16 +8,22 @@ Complete guide to understanding, running, and deploying this project.
 
 ```
 portfolio/
-├── src/                        # React (Vite) frontend
-│   ├── admin/
-│   │   ├── AdminDashboard.jsx  # Admin panel – manage content + read messages
-│   │   └── AdminLogin.jsx      # Login page for admin
-│   ├── assets/                 # Images, PDFs, fonts
-│   ├── components/             # All page sections (Hero, About, Skills, …)
-│   ├── pages/                  # Resume page
-│   ├── App.jsx                 # Root – fetches API data, mounts all sections
-│   ├── main.jsx                # React entry point
-│   └── index.css               # All styles (design tokens, components)
+├── frontend/                   # React (Vite) frontend
+│   ├── src/
+│   │   ├── admin/
+│   │   │   ├── AdminDashboard.jsx  # Admin panel – manage content + read messages
+│   │   │   └── AdminLogin.jsx      # Login page for admin
+│   │   ├── assets/                 # Images, PDFs, fonts
+│   │   ├── components/             # All page sections (Hero, About, Skills, …)
+│   │   ├── pages/                  # Resume page
+│   │   ├── App.jsx                 # Root – fetches API data, mounts all sections
+│   │   ├── main.jsx                # React entry point
+│   │   └── index.css               # All styles (design tokens, components)
+│   ├── index.html              # HTML entry point
+│   ├── vercel.json             # Vercel SPA routing config
+│   ├── .env.example            # Frontend env vars template
+│   ├── vite.config.js          # Vite config
+│   └── package.json            # Frontend dependencies
 │
 ├── backend/                    # FastAPI backend
 │   ├── routers/
@@ -36,10 +42,7 @@ portfolio/
 │   └── .env.example            # Copy to .env and fill in values
 │
 ├── .github/workflows/ci.yml    # GitHub Actions — build + dependency check
-├── vercel.json                 # Vercel SPA routing config
-├── .env.example                # Frontend env vars template
-├── vite.config.js              # Vite config
-└── package.json                # Frontend dependencies
+└── CODE_GUIDE.md               # This file
 ```
 
 ---
@@ -49,7 +52,7 @@ portfolio/
 ### 1. Frontend
 
 ```bash
-cd portfolio
+cd portfolio/frontend
 npm install
 npm run dev          # starts at http://localhost:5173
 ```
@@ -76,12 +79,12 @@ API docs → http://localhost:8000/docs
 
 ## Environment Variables
 
-### Frontend (`.env`)
+### Frontend (`frontend/.env`)
 | Variable | Description |
 |---|---|
 | `VITE_API_URL` | Deployed backend URL (e.g. `https://your-app.onrender.com`) |
 
-### Backend (`.env`)
+### Backend (`backend/.env`)
 | Variable | Description |
 |---|---|
 | `SECRET_KEY` | JWT signing secret (use a long random string) |
@@ -101,7 +104,7 @@ API docs → http://localhost:8000/docs
 
 1. Push this repo to GitHub.
 2. Go to [vercel.com](https://vercel.com) → **New Project** → import your repo.
-3. **Root directory:** `.` (repo root, not `/src`)
+3. **Root directory:** `frontend`
 4. **Framework:** Vite (auto-detected)
 5. **Environment variables:** Add `VITE_API_URL` = your Render backend URL.
 6. Deploy → Vercel builds with `npm run build` and serves `dist/`.

@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from database import get_db
 from models import Message
 from schemas import MessageCreate, MessageOut
-from auth import get_current_user
+from auth import get_current_admin
 import smtplib
 import os
 from email.mime.text import MIMEText
@@ -69,12 +69,12 @@ def create_message(payload: MessageCreate, db: Session = Depends(get_db)):
 
 
 @router.get("/", response_model=List[MessageOut])
-def get_messages(db: Session = Depends(get_db), _: dict = Depends(get_current_user)):
+def get_messages(db: Session = Depends(get_db), _: dict = Depends(get_current_admin)):
     return db.query(Message).order_by(Message.created_at.desc()).all()
 
 
 @router.patch("/{msg_id}/read")
-def mark_read(msg_id: int, db: Session = Depends(get_db), _: dict = Depends(get_current_user)):
+def mark_read(msg_id: int, db: Session = Depends(get_db), _: dict = Depends(get_current_admin)):
     msg = db.query(Message).filter(Message.id == msg_id).first()
     if not msg:
         raise HTTPException(status_code=404, detail="Message not found")
@@ -84,7 +84,7 @@ def mark_read(msg_id: int, db: Session = Depends(get_db), _: dict = Depends(get_
 
 
 @router.delete("/{msg_id}")
-def delete_message(msg_id: int, db: Session = Depends(get_db), _: dict = Depends(get_current_user)):
+def delete_message(msg_id: int, db: Session = Depends(get_db), _: dict = Depends(get_current_admin)):
     msg = db.query(Message).filter(Message.id == msg_id).first()
     if not msg:
         raise HTTPException(status_code=404, detail="Message not found")

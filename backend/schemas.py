@@ -1,6 +1,7 @@
 """Pydantic schemas for request/response validation."""
 from pydantic import BaseModel
 from typing import Optional, List
+from datetime import datetime
 
 
 # ── Auth ──────────────────────────────────────────────
@@ -79,6 +80,6 @@ class MessageCreate(BaseModel):
 class MessageOut(MessageCreate):
     id: int
     is_read: bool = False
-    created_at: Optional[str] = None
+    created_at: Optional[datetime] = None
     class Config: from_attributes = True
 

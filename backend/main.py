@@ -2,6 +2,7 @@
 FastAPI backend entry point.
 Run: uvicorn main:app --reload --port 8000
 """
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine, Base
@@ -14,9 +15,14 @@ Base.metadata.create_all(bind=engine)
 app = FastAPI(title="Harsha Portfolio API", version="1.0.0")
 
 # Allow the React dev server + production origin
+allowed_origins = ["http://localhost:5173", "http://localhost:3000"]
+frontend_url = os.environ.get("FRONTEND_URL")
+if frontend_url:
+    allowed_origins.append(frontend_url)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000", "*"],
+    allow_origins=allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

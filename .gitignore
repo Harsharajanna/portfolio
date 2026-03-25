@@ -1,9 +1,9 @@
-# Node
-node_modules/
-dist/
-.env
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
 
-# Python
+# Backend (Python)
 backend/__pycache__/
 backend/routers/__pycache__/
 backend/venv/
