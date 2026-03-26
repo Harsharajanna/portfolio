@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import harshaPhoto from '../assets/harsha.jpg'
+import harshaPhoto from '../assets/harsha.svg'
 
 const ROLES = [
   'AI Engineer',
